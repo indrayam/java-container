@@ -10,11 +10,15 @@
 
 1. I used `5. Building an Application with Spring Boot` to create a simple SpringBoot app. After that, I created the `Dockerfile` and `launch.sh` files based on reference `2. Dockerizing Java 10 Spring Boot app`. The result is all in this repo
 
-2. Build the Docker image
+2. Build the SpringBoot App
+
+> `mvn package && java -jar target/gs-spring-boot-0.1.0.jar`
+
+3. Build the Docker image
 
 > `d build -t helloworld .`
 
-3. Run the Docker Image
+4. Run the Docker Image
 
 > `d run -d --name sbdemo -p 8080:8080 -e JAVA_XMX='1g' -e JAVA_XMS='512m' helloworld`
 
