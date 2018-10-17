@@ -8,7 +8,7 @@
 
 ## Steps to Build and Run the Docker Image
 
-1. I used `5. Building an Application with Spring Boot` to create a simple SpringBoot app. After that, I created the `Dockerfile` and `launch.sh` files based on reference `2. Dockerizing Java 10 Spring Boot app`. The result is all in this repo
+1. I used reference `Building an Application with Spring Boot` to create a simple SpringBoot app. After that, I created the `Dockerfile` and `launch.sh` files based on reference `Dockerizing Java 10 Spring Boot app`. The result is all in this repo
 
 2. Build the SpringBoot App
 
