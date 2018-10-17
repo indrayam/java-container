@@ -15,3 +15,18 @@ RUN /opt/jdk/bin/jlink \
     --output /opt/jdk-minimal \
     --compress 2 \
     --no-header-files
+
+# Second stage, add only our custom jdk9 distro and our app
+FROM debian:9-slim
+COPY --from=builder /opt/jdk-minimal /opt/jdk-minimal
+
+ENV JAVA_HOME=/opt/jdk-minimal
+ENV PATH="$PATH:$JAVA_HOME/bin"
+ENV APP_TIMEZONE=UTC
+
+EXPOSE 8080
+ENTRYPOINT ["/launch.sh"]
+COPY launch.sh /
+RUN chmod +x /launch.sh
+
+COPY target/gs-spring-boot-0.1.0.jar /app.jar
