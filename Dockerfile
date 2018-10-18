@@ -2,7 +2,7 @@ FROM debian:9-slim AS builder
 
 RUN set -ex && \
     apt-get update && apt-get install -y wget unzip && \
-    wget https://download.java.net/java/GA/jdk10/10/binaries/openjdk-10_linux-x64_bin.tar.gz -O jdk.tar.gz -nv && \
+    wget https://download.java.net/java/GA/jdk11/13/GPL/openjdk-11.0.1_linux-x64_bin.tar.gz -O jdk.tar.gz -nv && \
     mkdir -p /opt/jdk && \
     tar zxvf jdk.tar.gz -C /opt/jdk --strip-components=1 && \
     rm jdk.tar.gz && \
