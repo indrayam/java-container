@@ -76,7 +76,7 @@ d build -t helloworld .
 4. Run the Docker Image
 
 ```bash
-d run -d --name sbdemo -p 8080:8080 -e JAVA_XMS='512m' -e JAVA_XMX='1g' sbhelloworld
+d run -d --name sbdemo -p 8080:8080 -e JAVA_XMS='512m' -e JAVA_XMX='1g' helloworld
 ```
 
 Resulting container size: **129MB**
