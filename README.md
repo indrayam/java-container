@@ -76,10 +76,22 @@ d build -t helloworld .
 4. Run the Docker Image
 
 ```bash
-d run -d --name sbdemo -p 8080:8080 -e JAVA_XMS='512m' -e JAVA_XMX='1g' helloworld
+d run -d --name sbdemo -p 8080:8080 -e JAVA_XMS='128m' -e JAVA_XMX='256m' helloworld
 ```
 
-Resulting container size: **129MB**
+Resulting container size: **131MB**
+
+## Steps to see how much memory is being used
+
+These commands were run on Ubuntu. `smem` is not a tool available on Mac
+
+```bash
+>sudo smem | grep -i 'java -X'
+ PID User     Command                         Swap      USS      PSS      RSS
+3346 root     java -Xmx256m -Xms128m -Dus        0   264852   265634   266420
+```
+
+Basically, PSS and RSS values are around **~260MB**. So the JVM running inside the container is respecting the memory constraints given to it. See [Improved Docker Container Integration With Java 10](https://blog.docker.com/2018/04/improved-docker-container-integration-with-java-10/) for more details.
 
 
 ## References
