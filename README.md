@@ -76,7 +76,7 @@ d build -t helloworld .
 4. Run the Docker Image
 
 ```bash
-d run -d --name sbdemo -p 8080:8080 -e JAVA_XMS='128m' -e JAVA_XMX='256m' helloworld
+d run -d --name demo -p 8080:8080 -e JAVA_XMS='128m' -e JAVA_XMX='256m' helloworld
 ```
 
 Resulting container size: **131MB**
@@ -93,6 +93,40 @@ These commands were run on Ubuntu. `smem` is not a tool available on Mac
 
 Basically, PSS and RSS values are around **~260MB**. So the JVM running inside the container is respecting the memory constraints given to it. See [Improved Docker Container Integration With Java 10](https://blog.docker.com/2018/04/improved-docker-container-integration-with-java-10/) for more details.
 
+## What if my CI does not support Multi-Stage Builds?
+
+1. Build the intermediate ("builder") image
+
+```bash
+d build -t code-jdk11 -f Dockerfile.jdkbuild .
+```
+
+2. Push it to DockerHub or Containers.cisco.com
+
+```bash
+d tag code-jdk11 indrayam/code-jdk11:0.1
+d tag code-jdk11 containers.cisco.com/codeplayground/code-jdk11:0.1
+```
+
+3. Run the `extractjdk.sh` utility to grab the `/opt/jdk-minimal` folder 
+
+```bash
+./extractjdk.sh
+```
+
+This should create `jdk-minimal` folder in the current folder
+
+4. Generate the `helloworld-csco` Docker Image
+
+```bash
+d build -t helloworld-csco -f Dockerfile.csco .
+```
+
+5. Run it
+
+```bash
+d run -d --name demo -p 8080:8080 -e JAVA_XMS='128m' -e JAVA_XMX='256m' helloworld helloworld-csco
+```
 
 ## References
 
